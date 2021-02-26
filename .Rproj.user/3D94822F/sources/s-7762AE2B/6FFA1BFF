@@ -1,0 +1,25 @@
+{
+    "id": "6FFA1BFF",
+    "path": "U:/TxDashboard/icu_extract/R/extract.R",
+    "project_path": "R/extract.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1614342094628.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "tempName": "Untitled1",
+        "cursorPosition": "43,16",
+        "scrollLine": "36"
+    },
+    "folds": "10|33|19|0|\n22|40|33|0|\n",
+    "lastKnownWriteTime": 1614349945,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1614349945032,
+    "read_only": false,
+    "read_only_alternatives": []
+}
