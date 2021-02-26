@@ -23,6 +23,8 @@ get_page_links <- function(url) {
 get_file_link <- function(page_handle) {
   url <- paste0("https://edoc.rki.de/handle/", page_handle)
   
+  #url <- "https://edoc.rki.de/handle/176904/7329"
+  
   print(paste0("Receiving link from: ", url))
   
   Sys.sleep(0.5)
@@ -30,7 +32,7 @@ get_file_link <- function(page_handle) {
   url %>% 
     read_html() %>% 
     as.character() %>% 
-    str_extract(., "https://edoc.rki.de/bitstream/handle(.+).csv")
+    str_extract(., "https://edoc.rki.de/(.+).csv")
 }
 #get_file_link("176904/7329")
 
@@ -40,7 +42,9 @@ divi_links <- tibble(
   rowwise() %>% 
   mutate(url_handles = map(base_url, get_page_links)) %>% 
   unnest(url_handles) %>% 
-  distinct(url_handles) %>% 
+  distinct(url_handles) 
+
+divi_csvs <- divi_links %>% 
   rowwise() %>% 
   mutate(file_url = map(url_handles, get_file_link)) %>% 
   unnest(file_url) %>% 
@@ -50,14 +54,14 @@ divi_links <- tibble(
     dest_name = paste0("data_raw/", date, "_icu_data.csv")) %>% 
   select(file_url, dest_name)
 
-for (i in 1:nrow(divi_links)) {
-  print(paste0("Saving: ", pull(divi_links[i, 2])))
+for (i in 1:nrow(divi_csvs)) {
+  print(paste0("Saving: ", pull(divi_csvs[i, 2])))
   
   Sys.sleep(0.6)
   
   download.file(
-    url = pull(divi_links[i, 1]),
-    destfile = pull(divi_links[i, 2])
+    url = pull(divi_csvs[i, 1]),
+    destfile = pull(divi_csvs[i, 2])
   )
 }
 
