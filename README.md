@@ -1,7 +1,7 @@
 EDA
 ================
 Stephan
-2/26/2021
+Mar 01, 2021
 
 ## Data is imported from
 
@@ -37,7 +37,7 @@ data_raw %>%
   glimpse()
 ```
 
-    ## Rows: 120,787
+    ## Rows: 121,978
     ## Columns: 15
     ## $ bundesland                         <chr> "01", "01", "01", "01", "01", "0...
     ## $ kreis                              <chr> "01001", "01002", "01003", "0100...
@@ -90,8 +90,8 @@ g1 <- data_clean %>%
   geom_line(size = 1.2) +
   labs(title = "Average bed occupacy of ICU Units",
        subtitle = paste0("Data source @rki, Date: ", heute),
-       y = "average occupacy in %",
-       x = "date") +
+       y = "Average ICU bed occupacy in %",
+       x = "Date") +
   ggsci::scale_color_lancet(guide = "none")
 
 g2 <- data_clean %>% 
@@ -104,8 +104,8 @@ g2 <- data_clean %>%
   ggsci::scale_color_lancet(guide = "none") +
   labs(title = "Total bed capacity of ICU Units",
        subtitle = paste0("Data source @rki, Date: ", heute),
-       y = "total capacity in %",
-       x = "date")
+       y = "Total ICU bed capacity",
+       x = "Date")
 
 g1 / g2
 ```

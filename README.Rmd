@@ -1,7 +1,7 @@
 ---
 title: "EDA"
 author: "Stephan"
-date: "2/26/2021"
+date: "`r format(Sys.Date(), '%b %d, %Y')`"
 output: github_document
 ---
 
@@ -75,8 +75,8 @@ g1 <- data_clean %>%
   geom_line(size = 1.2) +
   labs(title = "Average bed occupacy of ICU Units",
        subtitle = paste0("Data source @rki, Date: ", heute),
-       y = "average occupacy in %",
-       x = "date") +
+       y = "Average ICU bed occupacy in %",
+       x = "Date") +
   ggsci::scale_color_lancet(guide = "none")
 
 g2 <- data_clean %>% 
@@ -89,8 +89,8 @@ g2 <- data_clean %>%
   ggsci::scale_color_lancet(guide = "none") +
   labs(title = "Total bed capacity of ICU Units",
        subtitle = paste0("Data source @rki, Date: ", heute),
-       y = "total capacity in %",
-       x = "date")
+       y = "Total ICU bed capacity",
+       x = "Date")
 
 g1 / g2
 
