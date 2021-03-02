@@ -5,7 +5,7 @@ cd icu_covid_data
 
 git pull
 
-sudo RScript R/extract.R
+sudo Rscript R/extract.R
 
 git add . 
 git commit -m "new render task at $jetzt"
