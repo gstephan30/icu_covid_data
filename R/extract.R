@@ -68,4 +68,4 @@ for (i in 1:nrow(divi_csvs)) {
 
 
 ## Render new README file
-rmarkdown::render("README.rmd")
+rmarkdown::render("README.Rmd")
