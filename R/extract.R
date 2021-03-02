@@ -4,6 +4,7 @@ library(dplyr)
 library(purrr)
 library(tidyr)
 
+## Data import
 base_page <- "https://edoc.rki.de/handle/176904/7011/recent-submissions?offset="
 lookup_pages <- seq(0, 1000, 20)
 look_url <- paste0(base_page, lookup_pages)
@@ -55,15 +56,16 @@ divi_csvs <- divi_links %>%
   select(file_url, dest_name)
 
 for (i in 1:nrow(divi_csvs)) {
-  print(paste0("Saving: ", pull(divi_csvs[i, 2])))
-  
-  Sys.sleep(0.6)
-  
-  download.file(
-    url = pull(divi_csvs[i, 1]),
-    destfile = pull(divi_csvs[i, 2])
-  )
+  if (!file.exists(divi_csvs$dest_name[i])) {
+    print(paste0("Downloading: ", pull(divi_csvs[i, 2])))
+    
+    Sys.sleep(0.6)
+    
+    download.file(url = pull(divi_csvs[i, 1]),
+                  destfile = pull(divi_csvs[i, 2]))
+  }
 }
 
 
-
+## Render new README file
+rmarkdown::render("README.rmd")

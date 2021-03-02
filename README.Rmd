@@ -6,12 +6,12 @@ output: github_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, dpi = 300, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = FALSE, dpi = 300, message = FALSE, warning = FALSE)
 ```
 
-## Data is imported from
+## Daily exploration of ICU Bed Capacity
 
-Source: https://edoc.rki.de/handle/176904/7011
+Data Source: https://edoc.rki.de/handle/176904/7011
 
 ```{r}
 library(dplyr)
@@ -36,9 +36,8 @@ data_raw <- map_df(icu_files, function (x) read_csv(x) %>%
 )
 ```
 
-## EDA of Dataset
 
-```{r}
+```{r eval=FALSE}
 data_raw %>% 
   glimpse()
 
@@ -46,15 +45,16 @@ data_raw %>%
   naniar::vis_miss(warn_large_data = FALSE)
 ```
 
-## Data needs cleaning
-
 
 ```{r}
 data_clean <- data_raw %>% 
   mutate(gemeindeschluessel = if_else(is.na(gemeindeschluessel), kreis, gemeindeschluessel),
          daten_stand = if_else(is.na(daten_stand), as_datetime(date), daten_stand)) %>% 
   select(-kreis, -X1, -faelle_covid_aktuell_im_bundesland, -date)
+```
 
+
+```{r eval=FALSE}
 data_clean %>% 
   naniar::vis_miss(warn_large_data = FALSE) +
   theme_light(base_size = )
@@ -62,7 +62,6 @@ data_clean %>%
 
 ```
 
-## First Exploration Capacity
 
 ```{r}
 g1 <- data_clean %>% 
