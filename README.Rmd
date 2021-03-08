@@ -120,7 +120,11 @@ covid_beds <- data_clean %>%
   left_join(
     kreis_bl
   ) %>% 
-  select(bundesland, daten_stand, faelle_covid_aktuell, faelle_covid_aktuell_beatmet, betten_total) %>% 
+  select(bundesland, daten_stand, faelle_covid_aktuell, faelle_covid_aktuell_beatmet, betten_total) 
+
+saveRDS(covid_beds, "data/covid_beds.rds")
+
+covid_beds_perc <- covid_beds %>% 
   group_by(bundesland, daten_stand) %>% 
   summarise(bl_covid_n = sum(faelle_covid_aktuell, na.rm = TRUE),
             bl_covid_vent_n = sum(faelle_covid_aktuell_beatmet, na.rm = TRUE),
@@ -128,7 +132,7 @@ covid_beds <- data_clean %>%
   ungroup() %>% 
   mutate(covid_perc = round(bl_covid_n/bl_total_beds_n*100,1))
 
-covid_beds %>% 
+covid_beds_perc %>% 
   ggplot(aes(daten_stand, covid_perc, group = bundesland, color = "black")) +
   geom_line(size = 1.2) +
   ggsci::scale_color_lancet(guide = "none") +
