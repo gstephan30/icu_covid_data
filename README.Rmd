@@ -99,7 +99,7 @@ g1 / g2
 
 ## Percentage of COVID cases occupied ICU beds
 
-```{r}
+```{r fig.height=8}
 map_de <- readRDS("data/gadm36_DEU_2_sp.rds")
 kreis_bl <- map_de@data %>% as_tibble() %>% 
   select(gemeindeschluessel = CC_2, bundesland = NAME_1) %>% 
@@ -134,10 +134,17 @@ covid_beds_perc <- covid_beds %>%
 
 covid_beds_perc %>% 
   ggplot(aes(daten_stand, covid_perc, group = bundesland, color = "black")) +
-  geom_line(size = 1.2) +
+  geom_line(size = 1, alpha = 0.4) +
+  geom_line(
+    data = covid_beds_perc %>% 
+      mutate(daten_stand = floor_date(daten_stand, "week")) %>% 
+      group_by(daten_stand, bundesland) %>% 
+      summarise(covid_perc = median(covid_perc)),
+    aes(color = "green")
+  ) +
   ggsci::scale_color_lancet(guide = "none") +
   facet_wrap(~bundesland, nrow = 4) +
-  labs(title = "Percentage of COVID cases occupied ICU beds",
+  labs(title = "Weekly percentage of COVID cases occupied ICU beds",
        subtitle = paste0("Data source @rki, Date: ", heute),
        x = "Date",
        y = "COVID cases in %") +
