@@ -149,7 +149,8 @@ covid_beds_perc %>%
        x = "Date",
        y = "COVID cases in %") +
   theme(strip.background = element_rect(fill = "#152238"),
-        strip.text = element_text(colour = 'white', face = "bold"))
+        strip.text = element_text(colour = 'white', face = "bold"),
+        axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
   
   
 
