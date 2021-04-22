@@ -91,9 +91,9 @@ g2 <- data_clean %>%
        y = "Total ICU bed capacity",
        x = "Date")
 
-g1 / g2
-
-
+capa <- g1 / g2
+save(capa, file = "figs/capa.RData")
+capa
 ```
 
 
@@ -132,7 +132,7 @@ covid_beds_perc <- covid_beds %>%
   ungroup() %>% 
   mutate(covid_perc = round(bl_covid_n/bl_total_beds_n*100,1))
 
-covid_beds_perc %>% 
+g_beds <- covid_beds_perc %>% 
   ggplot(aes(daten_stand, covid_perc, group = bundesland, color = "black")) +
   geom_line(size = 1, alpha = 0.4) +
   geom_line(
@@ -151,8 +151,9 @@ covid_beds_perc %>%
   theme(strip.background = element_rect(fill = "#152238"),
         strip.text = element_text(colour = 'white', face = "bold"),
         axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
-  
-  
+
+save(g_beds, file = "figs/beds.RData")
+g_beds
 
 ```
 

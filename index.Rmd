@@ -1,0 +1,50 @@
+---
+title: "ICU Covid Beds"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    social: menu
+    theme: sandstone
+---
+
+```{r setup, include=FALSE, dpi=600}
+library(flexdashboard)
+library(patchwork)
+load("figs/beds.RData")
+load("figs/capa.RData")
+ggplot2::theme_set(ggplot2::theme_light())
+```
+
+COVID Cases on ICU
+=======================================================================
+
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### ICU COVID Beds
+
+```{r}
+g_beds
+```
+
+Bed capacity on ICY
+=======================================================================
+
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Bed capacity
+
+```{r}
+capa
+```
+
+Info
+=======================================================================
+
+### Information
+
+Please see https://github.com/gstephan30/icu_covid_data for more information
