@@ -6,8 +6,9 @@ cd icu_covid_data
 git pull
 
 sudo Rscript R/extract.R
+sudo Rscript -e "rmarkdown::render('icu_covid_data/index.Rmd')"
 
-git add . 
+git add .
 git commit -m "new render task at $jetzt"
 git push -u origin master
 
