@@ -113,14 +113,14 @@ kreis_bl <- map_de@data %>% as_tibble() %>%
   )
 
 covid_beds <- data_clean %>% 
-  select(gemeindeschluessel, daten_stand, betten_belegt, betten_frei, faelle_covid_aktuell, faelle_covid_aktuell_beatmet) %>% 
+  #select(gemeindeschluessel, daten_stand, betten_belegt, betten_frei, faelle_covid_aktuell, faelle_covid_aktuell_beatmet) %>% 
   mutate(betten_total = betten_belegt+betten_frei) %>% 
-  select(-betten_belegt, -betten_frei) %>% 
+  #select(-betten_belegt, -betten_frei) %>% 
   filter(!is.na(faelle_covid_aktuell)) %>% 
   left_join(
     kreis_bl
-  ) %>% 
-  select(gemeindeschluessel, bundesland, daten_stand, faelle_covid_aktuell, faelle_covid_aktuell_beatmet, betten_total) 
+  )  
+  #select(gemeindeschluessel, bundesland, daten_stand, faelle_covid_aktuell, faelle_covid_aktuell_beatmet, betten_total) 
 
 saveRDS(covid_beds, "data/covid_beds.rds")
 
