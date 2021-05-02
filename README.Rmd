@@ -120,7 +120,7 @@ covid_beds <- data_clean %>%
   left_join(
     kreis_bl
   ) %>% 
-  select(bundesland, daten_stand, faelle_covid_aktuell, faelle_covid_aktuell_beatmet, betten_total) 
+  select(gemeindeschluessel, bundesland, daten_stand, faelle_covid_aktuell, faelle_covid_aktuell_beatmet, betten_total) 
 
 saveRDS(covid_beds, "data/covid_beds.rds")
 
