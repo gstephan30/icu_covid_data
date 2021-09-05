@@ -9,7 +9,7 @@ output: github_document
 knitr::opts_chunk$set(echo = FALSE, dpi = 300, message = FALSE, warning = FALSE)
 ```
 
-## Daily exploration of ICU (Intensive Care Unit) Bed Capacity
+## Daily exploration of ICU Bed Capacity
 
 Data Source: https://edoc.rki.de/handle/176904/7011
 
