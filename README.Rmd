@@ -29,11 +29,16 @@ heute <- format(Sys.Date(), "%b %d, %Y")
 
 
 icu_files <- list.files(path = "data_raw/", pattern = "csv", full.names = TRUE)
-data_raw <- map_df(icu_files, function (x) read_csv(x) %>% 
-                     mutate(date = x,
-                            date = str_extract_all(date, "[0-9]{4}-[0-9]{2}-[0-9]{2}"),
-                            date = ymd(date))
-)
+
+read_icu <- function(file) {
+  print(file)
+  read.csv(file) %>% 
+    as_tibble() %>% 
+    mutate(date = file,
+           date = str_extract_all(date, "[0-9]{4}-[0-9]{2}-[0-9]{2}"),
+           date = ymd(date))
+}
+data_raw <- map_df(icu_files, read_icu)
 ```
 
 
@@ -49,8 +54,9 @@ data_raw %>%
 ```{r}
 data_clean <- data_raw %>% 
   mutate(gemeindeschluessel = if_else(is.na(gemeindeschluessel), kreis, gemeindeschluessel),
+         daten_stand = ymd_hms(daten_stand),
          daten_stand = if_else(is.na(daten_stand), as_datetime(date), daten_stand)) %>% 
-  select(-kreis, -X1, -faelle_covid_aktuell_im_bundesland, -date)
+  select(-kreis, -faelle_covid_aktuell_im_bundesland, -date)
 ```
 
 
@@ -118,6 +124,7 @@ covid_beds <- data_clean %>%
   mutate(betten_total = betten_belegt+betten_frei) %>% 
   #select(-betten_belegt, -betten_frei) %>% 
   filter(!is.na(faelle_covid_aktuell)) %>% 
+  mutate(gemeindeschluessel = ifelse(nchar(gemeindeschluessel) == 4, paste0(0, gemeindeschluessel), gemeindeschluessel)) %>% 
   left_join(
     kreis_bl
   )  
