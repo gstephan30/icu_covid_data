@@ -31,7 +31,7 @@ heute <- format(Sys.Date(), "%b %d, %Y")
 icu_files <- list.files(path = "data_raw/", pattern = "csv", full.names = TRUE)
 
 read_icu <- function(file) {
-  print(file)
+  #print(file)
   read.csv(file) %>% 
     as_tibble() %>% 
     mutate(date = file,
