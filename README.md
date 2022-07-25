@@ -1,7 +1,7 @@
 EDA
 ================
 Stephan
-Jul 24, 2022
+Jul 25, 2022
 
 ## Daily exploration of ICU Bed Capacity
 
